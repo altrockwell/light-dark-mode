@@ -31,11 +31,20 @@ function lightMode() {
 function switchTheme(e) {
 	if (e.target.checked) {
 		document.documentElement.setAttribute('data-theme', 'dark');
+		localStorage.setItem('theme', 'dark');
 		darkMode();
 	} else {
 		document.documentElement.setAttribute('data-theme', 'light');
+		localStorage.setItem('theme', 'light');
+
 		lightMode();
 	}
 }
 
 toggleSwitch.addEventListener('change', switchTheme);
+
+const currentTheme = localStorage.getItem('theme');
+
+document.documentElement.setAttribute('data-theme', currentTheme || 'light');
+toggleSwitch.checked = currentTheme === 'dark' ? true : false;
+if (currentTheme === 'dark') darkMode();
